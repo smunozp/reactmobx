@@ -34,6 +34,12 @@ export default class TodoForm extends React.Component<
 
     this.sumbitAction = this.sumbitAction.bind(this)
   }
+  componentWillUnmount() {
+    // fix Warning: Can't perform a React state update on an unmounted component
+    this.setState = (state, callback) => {
+      return
+    }
+  }
   async sumbitAction(e: React.FormEvent<EventTarget>) {
     e.preventDefault()
 

@@ -23,12 +23,24 @@ export default class TodoComponent extends React.Component<
   IPropsTodo,
   IStateTodo
 > {
+  private _mounted: boolean
   constructor(props: IPropsTodo) {
     super(props)
+    this._mounted = false
     this.state = { onEdit: false }
     this.updateTodo = this.updateTodo.bind(this)
     this.removeTodo = this.removeTodo.bind(this)
     this.changeSubmitStatus = this.changeSubmitStatus.bind(this)
+  }
+  componentDidMount() {
+    this._mounted = true
+  }
+
+  componentWillUnmount() {
+    this._mounted = false
+    this.setState = (state, callback) => {
+      return
+    }
   }
 
   async updateTodo() {
@@ -44,7 +56,7 @@ export default class TodoComponent extends React.Component<
       this.props.todoStore.remove(this.props.todo.id)
   }
   changeSubmitStatus(newStatus: boolean) {
-    this.setState({ onEdit: newStatus })
+    if (this._mounted) this.setState({ onEdit: newStatus })
   }
   render() {
     return (
