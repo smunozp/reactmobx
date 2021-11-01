@@ -18,7 +18,7 @@ function App() {
       <Container className='conatiner' maxWidth='sm'>
         <Card>
           <CardContent>
-            <h3>TODO App</h3>
+            <h3>Select a RANDOM winner from a list App</h3>
             <Provider todoStore={todoStore}>
               <TodoForm type ="add" />
               <TodoList />

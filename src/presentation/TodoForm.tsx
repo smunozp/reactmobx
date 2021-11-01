@@ -67,7 +67,7 @@ export default class TodoForm extends React.Component<
           id='outlined-basic'
           value={this.state.value}
           onChange={(e) => this.setState({ value: e.target.value })}
-          label={this.props.type === 'add' ? 'Add Todo' : 'Update Todo'}
+          label={this.props.type === 'add' ? 'Add  Choise' : 'Update Choise'}
           variant='outlined'
         />
       </form>
