@@ -4,18 +4,21 @@ import TextField from '@material-ui/core/TextField'
 import { inject, observer } from 'mobx-react'
 import TodoStore from '../domain/TodoStore'
 
-interface IProps {
+interface IPropsTodoForm {
   todoStore?: TodoStore
 }
-interface IState {
+interface IStateTodoForm {
   value: string
 }
 
 @inject('todoStore')
 @observer
-export default class TodoForm extends React.Component<IProps, IState> {
+export default class TodoForm extends React.Component<
+  IPropsTodoForm,
+  IStateTodoForm
+> {
   //const [value, setValue] = useState('')
-  constructor(props: IProps) {
+  constructor(props: IPropsTodoForm) {
     super(props)
     this.state = { value: '' }
     this.createTodo = this.createTodo.bind(this)

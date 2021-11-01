@@ -11,9 +11,9 @@ export default class TodoStore {
       addTodo: action.bound,
       getList: action.bound,
       updateTodo: action.bound,
-
+      remove: action.bound,
     })
-}
+  }
 
   async addTodo(todo: Todo) {
     try {
@@ -23,7 +23,7 @@ export default class TodoStore {
       throw error
     }
   }
- async getList(): Promise<Array<Todo>> {
+  async getList(): Promise<Array<Todo>> {
     try {
       const todoAdded = await todoRepo.getAllTodos()
       this.todosList = todoAdded
@@ -33,7 +33,7 @@ export default class TodoStore {
     }
   }
 
-   async updateTodo(todo: Todo) {
+  async updateTodo(todo: Todo) {
     try {
       if (todo.id) {
         const todoUpdated = await todoRepo.update(todo.id, todo)
@@ -43,6 +43,14 @@ export default class TodoStore {
       } else {
         throw new Error('cant update')
       }
+    } catch (error) {
+      throw error
+    }
+  }
+  async remove(id: string): Promise<void> {
+    try {
+      await todoRepo.remove(id)
+      this.todosList = this.todosList.filter((todo) => todo.id !== id)
     } catch (error) {
       throw error
     }

@@ -69,13 +69,13 @@ export const update = async (id: string, todo: Todo): Promise<Todo> => {
 }
 
 // delete a todo
-export const remove = async (id: string): Promise<string | Error> => {
+export const remove = async (id: string): Promise<void> => {
   const docTodos = doc(db, 'todos', id)
   try {
     await deleteDoc(docTodos)
-    return 'deleted'
+    
   } catch (e) {
     console.error('Error deleting document: ', e)
-    return new Error('fail to deleting to db')
+    throw new Error('fail to deleting to db')
   }
 }
