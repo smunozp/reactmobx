@@ -36,7 +36,10 @@ export default class TodoStore {
   async updateTodo(todo: Todo) {
     try {
       if (todo.id) {
+        console.log('update id and value', todo.id, JSON.stringify(todo))
         const todoUpdated = await todoRepo.update(todo.id, todo)
+
+        console.log('update response', todoUpdated)
 
         const objIndex = this.todosList.findIndex((obj) => obj.id === todo.id)
         this.todosList[objIndex] = todoUpdated

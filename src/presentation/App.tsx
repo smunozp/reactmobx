@@ -20,7 +20,7 @@ function App() {
           <CardContent>
             <h3>TODO App</h3>
             <Provider todoStore={todoStore}>
-              <TodoForm />
+              <TodoForm type ="add" />
               <TodoList />
             </Provider>
           </CardContent>
