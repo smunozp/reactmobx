@@ -9,17 +9,15 @@ import { inject, observer } from 'mobx-react'
 @observer
 export default class TodoList extends React.Component<
   { todoStore?: TodoStore },
-  {} //{ todosList: Array<Todo> }
+  {}
 > {
   async componentDidMount() {
     await this.props.todoStore?.getList()
   }
   render() {
-    //const todosList = this.props.todoStore?.todosList ?? []
-    //console.log('todosList', todosList)
     return (
       <>
-        {this.props.todoStore?.todosList.map((todo: Todo, i: number) => (
+        {this.props.todoStore?.todosList.map((todo: Todo) => (
           <React.Fragment key={todo.id}>
             <TodoComponent todo={todo} todoStore={this.props.todoStore} />
             <Divider />
