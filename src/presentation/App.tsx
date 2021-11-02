@@ -9,22 +9,26 @@ import './App.scss'
 import { Provider } from 'mobx-react'
 
 import TodoStore from '../domain/TodoStore'
+import WinnerStore from '../domain/WinerStore'
 
-const todoStore = new TodoStore()
+const stores = {
+  todoStore: new TodoStore(),
+  winnerStore: new WinnerStore(),
+}
 
 function App() {
   return (
     <div className='App'>
       <Container className='conatiner' maxWidth='sm'>
-        <Card>
-          <CardContent>
-            <h3>Select a RANDOM winner from a list App</h3>
-            <Provider todoStore={todoStore}>
-              <TodoForm type ="add" />
+        <Provider {...stores}>
+          <Card>
+            <CardContent>
+              <h3>Select a RANDOM winner from a list App</h3>
+              <TodoForm type='add' />
               <TodoList />
-            </Provider>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        </Provider>
       </Container>
     </div>
   )

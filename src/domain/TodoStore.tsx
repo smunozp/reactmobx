@@ -9,9 +9,7 @@ export default class TodoStore {
   constructor() {
     makeObservable(this, {
       todosList: observable,
-      addTodo: action.bound,
-      updateTodo: action.bound,
-      remove: action.bound,
+     
     })
 
     this.updateTodosFromSuscription = this.updateTodosFromSuscription.bind(this)

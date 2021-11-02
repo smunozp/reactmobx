@@ -4,18 +4,14 @@ import { Winner } from './WinnerModel'
 
 type winnerId = string
 
-export default class SelectWinnerStore {
+export default class WinnerStore {
   winner: winnerId = ''
 
   constructor() {
     makeObservable(this, {
       winner: observable,
 
-      updateWinner: action.bound,
-      removeWinner: action.bound,
     })
-
-    //this.updateTodosFromSuscription = this.updateTodosFromSuscription.bind(this)
   }
 
   updateWinnerFromSuscription(winner: Winner) {
