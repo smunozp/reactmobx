@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import TextField from '@material-ui/core/TextField'
 //import * as todo from "../repositories/firestore/todos";
 import { inject, observer } from 'mobx-react'
@@ -36,7 +36,7 @@ export default class TodoForm extends React.Component<
   }
   componentWillUnmount() {
     // fix Warning: Can't perform a React state update on an unmounted component
-    this.setState = (state, callback) => {
+    this.setState = () => {
       return
     }
   }
@@ -50,13 +50,13 @@ export default class TodoForm extends React.Component<
       }
       if (this.props.todoStore) await this.props.todoStore?.addTodo(item)
     } else {
-      console.log('updating', this.props.todo?.id)
+      //console.log('updating', this.props.todo?.id)
       if (this.props.todo?.id && this.props.todo) {
         const updatedToto: Todo = {
           id: this.props.todo.id,
           description: this.state.value,
         }
-        console.log('updating', JSON.stringify(updatedToto))
+        //console.log('updating', JSON.stringify(updatedToto))
         if (this.props.todoStore)
           await this.props.todoStore?.updateTodo(updatedToto)
       }

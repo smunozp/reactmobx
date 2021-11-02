@@ -37,12 +37,7 @@ export default class TodoList extends React.Component<
     return (
       <>
         {this.props.todoStore?.todosList.map((todo: Todo) => {
-          console.log(
-            'isWinner',
-            todo.id,
-            this.props.winnerStore?.winner,
-            todo.id === this.props.winnerStore?.winner
-          )
+         
           return (
             <React.Fragment key={todo.id}>
               <TodoComponent

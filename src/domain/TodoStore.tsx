@@ -1,4 +1,4 @@
-import { action, makeObservable, observable } from 'mobx'
+import { makeObservable, observable } from 'mobx'
 import { Todo } from './TodoModel'
 import * as todoRepo from '../repositories/firestore/todos'
 import { changeType } from '../repositories/firestore/todos'
@@ -9,7 +9,6 @@ export default class TodoStore {
   constructor() {
     makeObservable(this, {
       todosList: observable,
-     
     })
 
     this.updateTodosFromSuscription = this.updateTodosFromSuscription.bind(this)
@@ -22,7 +21,7 @@ export default class TodoStore {
     if (change === 'modified') {
       const objIndex = this.todosList?.findIndex((obj) => obj.id === id)
       const todoUpdated = { id: id, ...data }
-      console.log('todoUpdated', todoUpdated)
+      //console.log('todoUpdated', todoUpdated)
       this.todosList[objIndex] = todoUpdated
     }
     if (change === 'removed') {
