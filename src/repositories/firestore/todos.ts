@@ -27,17 +27,12 @@ export const listUpdatesSubscription = (
 }
 
 // create a todo
-export const create = async (todo: Todo): Promise<Todo> => {
+export const create = async (todo: Todo): Promise<void> => {
   //const todosCol = collection(db, 'todos')
   try {
-    const docRef = await addDoc(todosCol, {
+    await addDoc(todosCol, {
       description: todo.description,
-      done: todo.done,
     })
-    return {
-      id: docRef.id,
-      ...todo,
-    } as Todo
   } catch (e) {
     console.error('Error adding document: ', e)
     throw new Error('fail to add to db')
@@ -46,14 +41,12 @@ export const create = async (todo: Todo): Promise<Todo> => {
 }
 
 // update a todo
-export const update = async (id: string, todo: Todo): Promise<Todo> => {
+export const update = async (id: string, todo: Todo): Promise<void> => {
   const docTodos = doc(db, 'todos', id)
   try {
     await updateDoc(docTodos, {
       description: todo.description,
-      done: todo.done,
     })
-    return todo
   } catch (e) {
     console.error('Error updating document: ', e)
     throw new Error('fail to update to db')

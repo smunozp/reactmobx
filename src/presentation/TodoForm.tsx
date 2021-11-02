@@ -32,7 +32,7 @@ export default class TodoForm extends React.Component<
       this.state = { value: this.props.todo?.description || '' }
     }
 
-    this.sumbitAction = this.sumbitAction.bind(this)
+    this.submitAction = this.submitAction.bind(this)
   }
   componentWillUnmount() {
     // fix Warning: Can't perform a React state update on an unmounted component
@@ -40,7 +40,7 @@ export default class TodoForm extends React.Component<
       return
     }
   }
-  async sumbitAction(e: React.FormEvent<EventTarget>) {
+  async submitAction(e: React.FormEvent<EventTarget>) {
     e.preventDefault()
 
     if (this.props.type === 'add') {
@@ -55,7 +55,6 @@ export default class TodoForm extends React.Component<
         const updatedToto: Todo = {
           id: this.props.todo.id,
           description: this.state.value,
-          done: this.props.todo.done,
         }
         console.log('updating', JSON.stringify(updatedToto))
         if (this.props.todoStore)
@@ -67,7 +66,7 @@ export default class TodoForm extends React.Component<
   }
   render() {
     return (
-      <form onSubmit={this.sumbitAction}>
+      <form onSubmit={this.submitAction}>
         <TextField
           style={{ width: '100%' }}
           id='outlined-basic'

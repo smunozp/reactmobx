@@ -32,7 +32,7 @@ export default class TodoStore {
     }
   }
 
-  suscribeToListChanges() {
+  subscribeToListChanges() {
     return todoRepo.listUpdatesSubscription(this.updateTodosFromSuscription)
   }
 

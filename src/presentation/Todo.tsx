@@ -47,7 +47,6 @@ export default class TodoComponent extends React.Component<
       this.props.todoStore.updateTodo({
         id: this.props.todo.id,
         description: this.props.todo.description,
-        done: !this.props.todo.done,
       })
   }
   async removeTodo() {
@@ -60,8 +59,6 @@ export default class TodoComponent extends React.Component<
   render() {
     return (
       <div>
-      
-      
         {!this.state.onEdit && (
           <div className='Todo'>
             <p>{this.props.todo.description}</p>
