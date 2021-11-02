@@ -1,6 +1,5 @@
 import React from 'react'
 import TextField from '@material-ui/core/TextField'
-//import * as todo from "../repositories/firestore/todos";
 import { inject, observer } from 'mobx-react'
 import TodoStore from '../domain/TodoStore'
 import { Todo } from '../domain/TodoModel'
@@ -72,7 +71,7 @@ export default class TodoForm extends React.Component<
           id='outlined-basic'
           value={this.state.value}
           onChange={(e) => this.setState({ value: e.target.value })}
-          label={this.props.type === 'add' ? 'Add  Choise' : 'Update Choise'}
+          label={this.props.type === 'add' ? 'Add  Choice' : 'Update Choice'}
           variant='outlined'
         />
       </form>

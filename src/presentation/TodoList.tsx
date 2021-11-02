@@ -5,7 +5,7 @@ import { Todo } from '../domain/TodoModel'
 import TodoStore from '../domain/TodoStore'
 import { inject, observer } from 'mobx-react'
 import { Unsubscribe } from '@firebase/util'
-import WinnerStore from '../domain/WinerStore'
+import WinnerStore from '../domain/WinnerStore'
 //import { TodoStore } from '../domain/TodoStore'
 
 interface IPropsTodoList {

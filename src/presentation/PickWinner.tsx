@@ -2,7 +2,7 @@ import Button from '@material-ui/core/Button'
 import CardActions from '@material-ui/core/CardActions'
 import { inject, observer } from 'mobx-react'
 import TodoStore from '../domain/TodoStore'
-import WinnerStore from '../domain/WinerStore'
+import WinnerStore from '../domain/WinnerStore'
 
 interface IPropsPickWinner {
   winnerStore?: WinnerStore
