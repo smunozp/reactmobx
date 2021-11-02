@@ -2,7 +2,7 @@ import React from 'react'
 import TodoForm from './TodoForm'
 import TodoList from './TodoList'
 import Container from '@material-ui/core/Container'
-import Card from '@material-ui/core/Card'
+//import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import './App.scss'
 
@@ -10,6 +10,8 @@ import { Provider } from 'mobx-react'
 
 import TodoStore from '../domain/TodoStore'
 import WinnerStore from '../domain/WinerStore'
+import { Card } from '@material-ui/core'
+import PickWinner from './PickWinner'
 
 const stores = {
   todoStore: new TodoStore(),
@@ -27,6 +29,7 @@ function App() {
               <TodoForm type='add' />
               <TodoList />
             </CardContent>
+            <PickWinner />
           </Card>
         </Provider>
       </Container>

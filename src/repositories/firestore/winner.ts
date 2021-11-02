@@ -5,9 +5,11 @@ import { db } from './firebase'
 
 const winnerDoc = doc(db, 'winner', 'winner')
 
-export const listUpdatesSubscription = (callbackFn: (data: Winner) => void) => {
+export const listUpdatesSubscription = (
+  callbackFn: (winner: Winner) => void
+) => {
   const unsubscribe = onSnapshot(winnerDoc, (doc) => {
-    callbackFn(doc.data() as Winner)
+    if (doc.data()) callbackFn(doc.data() as Winner)
   })
   return unsubscribe
 }

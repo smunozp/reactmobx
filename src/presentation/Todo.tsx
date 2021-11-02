@@ -11,6 +11,7 @@ import TodoForm from './TodoForm'
 interface IPropsTodo {
   todoStore?: TodoStore
   todo: Todo
+  isWinner: boolean
 }
 interface IStateTodo {
   onEdit: boolean
@@ -59,7 +60,7 @@ export default class TodoComponent extends React.Component<
   render() {
     return (
       <div>
-        {!this.state.onEdit && (
+        {!this.state.onEdit && !this.props.isWinner && (
           <div className='Todo'>
             <p>{this.props.todo.description}</p>
 
@@ -74,12 +75,18 @@ export default class TodoComponent extends React.Component<
             </IconButton>
           </div>
         )}
-        {this.state.onEdit && (
+        {this.state.onEdit && !this.props.isWinner && (
           <TodoForm
             type='edit'
             todo={this.props.todo}
             changeSubmitStatus={this.changeSubmitStatus}
           />
+        )}
+
+        {!this.state.onEdit && this.props.isWinner && (
+          <div className='Todo Winner'>
+            <p>We hava a WINNER!!: {this.props.todo.description}</p>
+          </div>
         )}
       </div>
     )
