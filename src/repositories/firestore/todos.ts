@@ -1,4 +1,4 @@
-import { onAuthStateChanged } from 'firebase/auth'
+//import { onAuthStateChanged } from 'firebase/auth'
 import {
   addDoc,
   collection,
@@ -15,21 +15,13 @@ import { db } from './firebase'
 type changeType = 'added' | 'modified' | 'removed'
 const todosCol = collection(db, 'todos')
 
-export const listUpdatesSuscription = (
-  callbackFn: (data: any, id: string, change: changeType) => void
+export const listUpdatesSubscription = (
+  callbackFn: (data: Todo, id: string, change: changeType) => void
 ) => {
   const q = query(collection(db, 'todos'))
   const unsubscribe = onSnapshot(q, (snapshot) => {
     snapshot.docChanges().forEach((change) => {
-      if (change.type === 'added') {
-        callbackFn(change.doc.data(), change.doc.id, 'added')
-      }
-      if (change.type === 'modified') {
-        callbackFn(change.doc.data(), change.doc.id, 'modified')
-      }
-      if (change.type === 'removed') {
-        callbackFn(change.doc.data(), change.doc.id, 'removed')
-      }
+      callbackFn(change.doc.data() as Todo, change.doc.id, change.type)
     })
   })
   return unsubscribe
@@ -85,7 +77,7 @@ export const update = async (id: string, todo: Todo): Promise<Todo> => {
     })
     return todo
   } catch (e) {
-    console.error('Error adupdateding document: ', e)
+    console.error('Error updating document: ', e)
     throw new Error('fail to update to db')
   }
 }

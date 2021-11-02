@@ -16,7 +16,7 @@ export default class TodoStore {
   }
 
    suscribeToListChanges(){
-    return todoRepo.listUpdatesSuscription(console.log)
+    return todoRepo.listUpdatesSubscription(console.log)
    }
 
   async addTodo(todo: Todo) {
