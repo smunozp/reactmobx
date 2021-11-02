@@ -61,12 +61,8 @@ export default class TodoComponent extends React.Component<
   render() {
     return (
       <div>
-        {/* <Switch
-          edge='end'
-          checked={this.props.todo.done}
-          onChange={this.updateTodo}
-          inputProps={{ 'aria-labelledby': 'switch-list-label-bluetooth' }}
-        /> */}
+      
+      
         {!this.state.onEdit && (
           <div className='Todo'>
             <p>{this.props.todo.description}</p>

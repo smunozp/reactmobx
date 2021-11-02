@@ -1,6 +1,6 @@
 import { getAuth } from 'firebase/auth'
 import { initializeApp } from 'firebase/app'
-import { getFirestore } from 'firebase/firestore/lite'
+import { getFirestore } from 'firebase/firestore'
 //declare var window: { firebase: firebase.FirebaseApp }
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_APIKEY,
@@ -12,7 +12,6 @@ const firebaseConfig = {
   appId: process.env.REACT_APP_APPID,
   //measurementId:process.env.REACT_APP_MID
 }
-
 
 const firebaseApp = initializeApp(firebaseConfig)
 //window.firebase = firebaseApp

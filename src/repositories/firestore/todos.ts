@@ -1,3 +1,4 @@
+import { onAuthStateChanged } from 'firebase/auth'
 import {
   addDoc,
   collection,
@@ -5,13 +6,34 @@ import {
   updateDoc,
   doc,
   deleteDoc,
-} from 'firebase/firestore/lite'
+  query,
+  onSnapshot,
+} from 'firebase/firestore'
 import { Todo } from '../../domain/TodoModel'
 import { db } from './firebase'
 
+type changeType = 'added' | 'modified' | 'removed'
 const todosCol = collection(db, 'todos')
 
-// mapping the todo document
+export const listUpdatesSuscription = (
+  callbackFn: (data: any, id: string, change: changeType) => void
+) => {
+  const q = query(collection(db, 'todos'))
+  const unsubscribe = onSnapshot(q, (snapshot) => {
+    snapshot.docChanges().forEach((change) => {
+      if (change.type === 'added') {
+        callbackFn(change.doc.data(), change.doc.id, 'added')
+      }
+      if (change.type === 'modified') {
+        callbackFn(change.doc.data(), change.doc.id, 'modified')
+      }
+      if (change.type === 'removed') {
+        callbackFn(change.doc.data(), change.doc.id, 'removed')
+      }
+    })
+  })
+  return unsubscribe
+}
 
 // retrieve all todos
 export const getAllTodos = async (): Promise<Array<Todo>> => {
@@ -73,7 +95,6 @@ export const remove = async (id: string): Promise<void> => {
   const docTodos = doc(db, 'todos', id)
   try {
     await deleteDoc(docTodos)
-    
   } catch (e) {
     console.error('Error deleting document: ', e)
     throw new Error('fail to deleting to db')
