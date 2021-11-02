@@ -10,7 +10,6 @@ export default class TodoStore {
     makeObservable(this, {
       todosList: observable,
       addTodo: action.bound,
-      getList: action.bound,
       updateTodo: action.bound,
       remove: action.bound,
     })
@@ -23,7 +22,6 @@ export default class TodoStore {
       this.todosList.push({ id: id, ...data })
     }
     if (change === 'modified') {
-      console.log('modif sub todoList', this.todosList)
       const objIndex = this.todosList?.findIndex((obj) => obj.id === id)
       const todoUpdated = { id: id, ...data }
       console.log('todoUpdated', todoUpdated)
@@ -45,23 +43,11 @@ export default class TodoStore {
       throw error
     }
   }
-  async getList(): Promise<Array<Todo>> {
-    try {
-      const todoAdded = await todoRepo.getAllTodos()
-      this.todosList = todoAdded
-      return todoAdded
-    } catch (error) {
-      throw error
-    }
-  }
 
   async updateTodo(todo: Todo) {
     try {
       if (todo.id) {
-        console.log('update id and value', todo.id, JSON.stringify(todo))
-        const todoUpdated = await todoRepo.update(todo.id, todo)
-
-        console.log('update response', todoUpdated)
+        await todoRepo.update(todo.id, todo)
       } else {
         throw new Error('cant update')
       }

@@ -2,7 +2,6 @@
 import {
   addDoc,
   collection,
-  getDocs,
   updateDoc,
   doc,
   deleteDoc,
@@ -27,25 +26,6 @@ export const listUpdatesSubscription = (
   return unsubscribe
 }
 
-// retrieve all todos
-export const getAllTodos = async (): Promise<Array<Todo>> => {
-  try {
-    const snapshot = await getDocs(todosCol)
-    const todos = await snapshot.docs.map((_data) => {
-      return {
-        id: _data.id, // because id field in separate function in firestore
-        ..._data.data(), // the remaining fields
-      }
-    })
-
-    // return and convert back it array of todo
-    return todos as Array<Todo>
-  } catch (e) {
-    console.error('Error adding document: ', e)
-    throw new Error('fail to add to db')
-  }
-}
-
 // create a todo
 export const create = async (todo: Todo): Promise<Todo> => {
   //const todosCol = collection(db, 'todos')
@@ -67,8 +47,6 @@ export const create = async (todo: Todo): Promise<Todo> => {
 
 // update a todo
 export const update = async (id: string, todo: Todo): Promise<Todo> => {
-  //await Firestore.collection(COLLECTION_NAME).doc(id).update(todo)
-
   const docTodos = doc(db, 'todos', id)
   try {
     await updateDoc(docTodos, {
