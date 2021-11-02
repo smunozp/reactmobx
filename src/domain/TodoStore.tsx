@@ -1,6 +1,7 @@
 import { action, makeObservable, observable } from 'mobx'
 import { Todo } from './TodoModel'
 import * as todoRepo from '../repositories/firestore/todos'
+import { changeType } from '../repositories/firestore/todos'
 
 export default class TodoStore {
   todosList: Array<Todo> = []
@@ -13,16 +14,33 @@ export default class TodoStore {
       updateTodo: action.bound,
       remove: action.bound,
     })
+
+    this.updateTodosFromSuscription = this.updateTodosFromSuscription.bind(this)
   }
 
-   suscribeToListChanges(){
-    return todoRepo.listUpdatesSubscription(console.log)
-   }
+  updateTodosFromSuscription(data: Todo, id: string, change: changeType) {
+    if (change === 'added') {
+      this.todosList.push({ id: id, ...data })
+    }
+    if (change === 'modified') {
+      console.log('modif sub todoList', this.todosList)
+      const objIndex = this.todosList?.findIndex((obj) => obj.id === id)
+      const todoUpdated = { id: id, ...data }
+      console.log('todoUpdated', todoUpdated)
+      this.todosList[objIndex] = todoUpdated
+    }
+    if (change === 'removed') {
+      this.todosList = this.todosList.filter((todo) => todo.id !== id)
+    }
+  }
+
+  suscribeToListChanges() {
+    return todoRepo.listUpdatesSubscription(this.updateTodosFromSuscription)
+  }
 
   async addTodo(todo: Todo) {
     try {
-      const todoAdded = await todoRepo.create(todo)
-      this.todosList.push(todoAdded)
+      await todoRepo.create(todo)
     } catch (error) {
       throw error
     }
@@ -44,9 +62,6 @@ export default class TodoStore {
         const todoUpdated = await todoRepo.update(todo.id, todo)
 
         console.log('update response', todoUpdated)
-
-        const objIndex = this.todosList.findIndex((obj) => obj.id === todo.id)
-        this.todosList[objIndex] = todoUpdated
       } else {
         throw new Error('cant update')
       }
@@ -57,7 +72,6 @@ export default class TodoStore {
   async remove(id: string): Promise<void> {
     try {
       await todoRepo.remove(id)
-      this.todosList = this.todosList.filter((todo) => todo.id !== id)
     } catch (error) {
       throw error
     }

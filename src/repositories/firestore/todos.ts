@@ -12,7 +12,7 @@ import {
 import { Todo } from '../../domain/TodoModel'
 import { db } from './firebase'
 
-type changeType = 'added' | 'modified' | 'removed'
+export type changeType = 'added' | 'modified' | 'removed'
 const todosCol = collection(db, 'todos')
 
 export const listUpdatesSubscription = (

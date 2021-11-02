@@ -15,7 +15,7 @@ export default class TodoList extends React.Component<
   private _unsubscribe: Unsubscribe | undefined
   async componentDidMount() {
     if (this.props.todoStore) {
-      await this.props.todoStore?.getList()
+      //await this.props.todoStore?.getList()
       this._unsubscribe = this.props.todoStore?.suscribeToListChanges()
     }
   }
